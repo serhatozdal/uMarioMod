@@ -9549,66 +9549,68 @@ void Map::EndBonus() {
 }
 
 void Map::playerDeath(bool animation, bool instantDeath) {
-	if((oPlayer->getPowerLVL() == 0 && !oPlayer->getUnkillAble()) || instantDeath) {
-		inEvent = true;
+	if (!CCFG::godModeEnabled) {
+		if((oPlayer->getPowerLVL() == 0 && !oPlayer->getUnkillAble()) || instantDeath) {
+			inEvent = true;
 
-		oEvent->resetData();
-		oPlayer->resetJump();
-		oPlayer->stopMove();
+			oEvent->resetData();
+			oPlayer->resetJump();
+			oPlayer->stopMove();
 
-		oEvent->iDelay = 150;
-		oEvent->newCurrentLevel = currentLevelID;
+			oEvent->iDelay = 150;
+			oEvent->newCurrentLevel = currentLevelID;
 
-		oEvent->newMoveMap = bMoveMap;
+			oEvent->newMoveMap = bMoveMap;
 
-		oEvent->eventTypeID = oEvent->eNormal;
+			oEvent->eventTypeID = oEvent->eNormal;
 
-		oPlayer->resetPowerLVL();
+			oPlayer->resetPowerLVL();
 
-		if(animation) {
-			oEvent->iSpeed = 4;
-			oEvent->newLevelType = iLevelType;
+			if(animation) {
+				oEvent->iSpeed = 4;
+				oEvent->newLevelType = iLevelType;
 
-			oPlayer->setYPos(oPlayer->getYPos() + 4.0f);
+				oPlayer->setYPos(oPlayer->getYPos() + 4.0f);
 
-			oEvent->vOLDDir.push_back(oEvent->eDEATHNOTHING);
-			oEvent->vOLDLength.push_back(30);
+				oEvent->vOLDDir.push_back(oEvent->eDEATHNOTHING);
+				oEvent->vOLDLength.push_back(30);
 
-			oEvent->vOLDDir.push_back(oEvent->eDEATHTOP);
+				oEvent->vOLDDir.push_back(oEvent->eDEATHTOP);
+				oEvent->vOLDLength.push_back(64);
+
+				oEvent->vOLDDir.push_back(oEvent->eDEATHBOT);
+				oEvent->vOLDLength.push_back(CCFG::GAME_HEIGHT - oPlayer->getYPos() + 128);
+			} else {
+				oEvent->iSpeed = 4;
+				oEvent->newLevelType = iLevelType;
+
+				oEvent->vOLDDir.push_back(oEvent->eDEATHTOP);
+				oEvent->vOLDLength.push_back(1);
+			}
+
+			oEvent->vOLDDir.push_back(oEvent->eNOTHING);
 			oEvent->vOLDLength.push_back(64);
 
-			oEvent->vOLDDir.push_back(oEvent->eDEATHBOT);
-			oEvent->vOLDLength.push_back(CCFG::GAME_HEIGHT - oPlayer->getYPos() + 128);
-		} else {
-			oEvent->iSpeed = 4;
-			oEvent->newLevelType = iLevelType;
+			if(oPlayer->getNumOfLives() > 1) {
+				oEvent->vOLDDir.push_back(oEvent->eLOADINGMENU);
+				oEvent->vOLDLength.push_back(90);
 
-			oEvent->vOLDDir.push_back(oEvent->eDEATHTOP);
-			oEvent->vOLDLength.push_back(1);
+				oPlayer->setNumOfLives(oPlayer->getNumOfLives() - 1);
+
+				CCFG::getMusic()->StopMusic();
+				CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cDEATH);
+			} else {
+				oEvent->vOLDDir.push_back(oEvent->eGAMEOVER);
+				oEvent->vOLDLength.push_back(90);
+
+				oPlayer->setNumOfLives(oPlayer->getNumOfLives() - 1);
+
+				CCFG::getMusic()->StopMusic();
+				CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cDEATH);
+			}
+		} else if(!oPlayer->getUnkillAble()) {
+			oPlayer->setPowerLVL(oPlayer->getPowerLVL() - 1);
 		}
-
-		oEvent->vOLDDir.push_back(oEvent->eNOTHING);
-		oEvent->vOLDLength.push_back(64);
-
-		if(oPlayer->getNumOfLives() > 1) {
-			oEvent->vOLDDir.push_back(oEvent->eLOADINGMENU);
-			oEvent->vOLDLength.push_back(90);
-
-			oPlayer->setNumOfLives(oPlayer->getNumOfLives() - 1);
-
-			CCFG::getMusic()->StopMusic();
-			CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cDEATH);
-		} else {
-			oEvent->vOLDDir.push_back(oEvent->eGAMEOVER);
-			oEvent->vOLDLength.push_back(90);
-
-			oPlayer->setNumOfLives(oPlayer->getNumOfLives() - 1);
-
-			CCFG::getMusic()->StopMusic();
-			CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cDEATH);
-		}
-	} else if(!oPlayer->getUnkillAble()) {
-		oPlayer->setPowerLVL(oPlayer->getPowerLVL() - 1);
 	}
 }
 

@@ -30,6 +30,7 @@ int CCFG::keyIDSpace = 0;
 int CCFG::keyIDShift = 0;
 
 bool CCFG::canMoveBackward = true;
+bool CCFG::godModeEnabled = false;
 
 /* ******************************************** */
 
