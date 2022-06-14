@@ -2,7 +2,7 @@
 
 converting visual c++ to c++.
 
-godMode is added. 
+godMode and unlimited lives are added. 
 
 ## Build Pre-requisites
 

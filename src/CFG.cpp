@@ -31,6 +31,7 @@ int CCFG::keyIDShift = 0;
 
 bool CCFG::canMoveBackward = true;
 bool CCFG::godModeEnabled = false;
+bool CCFG::unlimitedLives = false;
 
 /* ******************************************** */
 

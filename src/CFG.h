@@ -35,6 +35,7 @@ public:
 
 	static bool canMoveBackward;
 	static bool godModeEnabled;
+	static bool unlimitedLives;
 };
 
 #endif

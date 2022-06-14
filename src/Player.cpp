@@ -1144,6 +1144,9 @@ void Player::resetPowerLVL() {
 }
 
 int Player::getNumOfLives() {
+    if (CCFG::unlimitedLives) {
+        return 9999999;
+    }
 	return iNumOfLives;
 }
 

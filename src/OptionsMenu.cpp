@@ -18,7 +18,8 @@ OptionsMenu::OptionsMenu(void) {
 	this->lMO.push_back(new MenuOption("RUN", 73, 185));
 	this->lMO.push_back(new MenuOption("CAN MOVE BACKWARD", 73, 209));
 	this->lMO.push_back(new MenuOption("GOD MODE", 73, 233));
-	this->lMO.push_back(new MenuOption("MAIN MENU", 73, 257));
+	this->lMO.push_back(new MenuOption("UNLIMITED LIVES", 73, 257));
+	this->lMO.push_back(new MenuOption("MAIN MENU", 73, 300));
 
 	this->numOfMenuOptions = lMO.size();
 
@@ -100,6 +101,7 @@ void OptionsMenu::Draw(SDL_Renderer* rR) {
 
 	CCFG::getText()->Draw(rR, CCFG::canMoveBackward ? "TRUE" : "FALSE", 357, 209, 16, activeMenuOption == 6 ? 255 : 90, activeMenuOption == 6 ? 255 : 90, activeMenuOption == 6 ? 255 : 90);
 	CCFG::getText()->Draw(rR, CCFG::godModeEnabled ? "ON" : "OFF", 218, 233, 16, activeMenuOption == 7 ? 255 : 90, activeMenuOption == 7 ? 255 : 90, activeMenuOption == 7 ? 255 : 90);
+	CCFG::getText()->Draw(rR, CCFG::unlimitedLives ? "ON" : "OFF", 335, 257, 16, activeMenuOption == 8 ? 255 : 90, activeMenuOption == 8 ? 255 : 90, activeMenuOption == 8 ? 255 : 90);
 
 	if(inSetKey) {
 		SDL_SetRenderDrawColor(rR, 20, 20, 20, 245);
@@ -139,7 +141,10 @@ void OptionsMenu::enter() {
 		case 7:
 			CCFG::godModeEnabled = !CCFG::godModeEnabled;
             break;
-		case 8:
+        case 8:
+            CCFG::unlimitedLives = !CCFG::unlimitedLives;
+            break;
+		case 9:
 			CCore::getMap()->resetGameData();
 			CCFG::getMM()->setViewID(CCFG::getMM()->eMainMenu);
 			break;
