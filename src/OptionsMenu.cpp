@@ -19,7 +19,8 @@ OptionsMenu::OptionsMenu(void) {
 	this->lMO.push_back(new MenuOption("CAN MOVE BACKWARD", 73, 209));
 	this->lMO.push_back(new MenuOption("GOD MODE", 73, 233));
 	this->lMO.push_back(new MenuOption("UNLIMITED LIVES", 73, 257));
-	this->lMO.push_back(new MenuOption("MAIN MENU", 73, 300));
+	this->lMO.push_back(new MenuOption("POWER UP", 73, 281));
+	this->lMO.push_back(new MenuOption("MAIN MENU", 73, 343));
 
 	this->numOfMenuOptions = lMO.size();
 
@@ -144,7 +145,14 @@ void OptionsMenu::enter() {
         case 8:
             CCFG::unlimitedLives = !CCFG::unlimitedLives;
             break;
-		case 9:
+        case 9: {
+            int powerLevel = CCore::getMap()->getPlayer()->getPowerLVL();
+            if (powerLevel < 2) {
+                CCore::getMap()->getPlayer()->setPowerLVL(powerLevel + 1);
+            }
+            break;
+        }
+		case 10:
 			CCore::getMap()->resetGameData();
 			CCFG::getMM()->setViewID(CCFG::getMM()->eMainMenu);
 			break;

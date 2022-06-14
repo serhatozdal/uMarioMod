@@ -65,9 +65,9 @@ CCore::CCore(void) {
 
 	this->mouseX = this->mouseY = 0;
 
-	CCFG::keyIDA = SDLK_a;
-	CCFG::keyIDS = SDLK_s;
-	CCFG::keyIDD = SDLK_d;
+	CCFG::keyIDA = SDLK_LEFT;
+	CCFG::keyIDS = SDLK_DOWN;
+	CCFG::keyIDD = SDLK_RIGHT;
 	CCFG::keyIDSpace = SDLK_SPACE;
 	CCFG::keyIDShift = SDLK_LSHIFT;
 }
