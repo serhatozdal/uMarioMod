@@ -1,8 +1,10 @@
 # uMarioMod
 
+## Changes:
 converting visual c++ to c++.
-
-godMode and unlimited lives are added. 
+- godMode is added.
+- unlimited live is added.
+- power up is added.
 
 ## Build Pre-requisites
 
