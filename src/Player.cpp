@@ -1066,6 +1066,13 @@ int Player::getHitBoxY() {
 /* ******************************************** */
 
 void Player::addCoin() {
+    if (this->iCoins >= 100) {
+        ++iNumOfLives;
+        CCore::getMap()->addPoints((int)(fXPos - CCore::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1UP", 10, 14);
+        CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cONEUP);
+        this->iCoins = 0;
+        return;
+    }
 	++iCoins;
 	iScore += 100;
 }
